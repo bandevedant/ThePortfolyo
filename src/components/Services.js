@@ -1,5 +1,16 @@
 import SectionContainer from "./SectionContainer";
+import { useContext } from "react";
+import { AlexioContext,UserDataContext } from "../Context";
+
 const Services = () => {
+  const {userData}=useContext(UserDataContext);
+  const timelineItems = userData.user.timeline.sort((a, b) => a.sequence - b.sequence);
+  const topThreeItems = timelineItems.slice(0, 3);
+  const skillsData=userData.user.skills.slice(0,3);
+  const filteredSkills = skillsData.filter(
+    (skill) => skill.enabled // Filter only enabled skills
+  );
+
   return (
     <SectionContainer
       name={"resume"}
@@ -13,36 +24,32 @@ const Services = () => {
           <div className="resume-row">
             <h2 className="theme-after dark-color">Experience</h2>
             <ul>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg ti-briefcase" />
-                  <span className="dark-color">Google</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
-              <li>
-                <div className="r-name">
-                  <i className="theme-bg ti-briefcase" />
-                  <span className="dark-color">Apple</span>
-                  <label>OCT 2015 - JUNE 2016</label>
-                </div>
-                <div className="r-info">
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo
-                  </p>
-                </div>
-              </li>
+            {topThreeItems.map((timelineItem) => (
+        <li key={timelineItem.sequence} className="timeline-item">
+          <div className="r-name">
+            <i className="theme-bg ti-briefcase" />
+            <span className="dark-color">{timelineItem.company_name}</span>
+            <label>
+              {new Date(timelineItem.startDate).toLocaleDateString('en-US', {
+                month: 'short',
+                year: 'numeric',
+              })}
+              {' - '}
+              {timelineItem.endDate
+                ? new Date(timelineItem.endDate).toLocaleDateString('en-US', {
+                    month: 'short',
+                    year: 'numeric',
+                  })
+                : 'Present'}
+            </label>
+          </div>
+          <div className="r-info">
+            {timelineItem.summary && (
+              <p>{timelineItem.summary}</p>
+            )}
+          </div>
+        </li>
+      ))}
             </ul>
           </div>
         </div>{" "}
@@ -128,40 +135,24 @@ const Services = () => {
             </div>
           </div>
           <div className="col-md-6 p-30px-l sm-p-15px-l sm-m-30px-t">
-            <h3 className="dark-color">Coding Skills</h3>
-            <div className="skills">
-              <div className="progress-lt">
-                <h6>HTML5</h6>
-                <span className="theme-bg">92%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "92%" }}></div>
-                  {/* /progress-bar */}
+          <h3 className="dark-color">Coding Skills</h3>
+          <div className="skills">
+            {filteredSkills.map((skill) => (
+              <div key={skill.name} className="skill-item" style={{ padding: "7px 0" }}> {/* Removed li tag, added class */}
+                <div className="progress-lt">
+                  <h6>{skill.name}</h6>
+                  <span className="theme-bg">{skill.percentage}%</span>
+                  <div className="progress">
+                    <div
+                      className="progress-bar"
+                      style={{ width: `${skill.percentage}%` }} // Dynamic width using string interpolation
+                    ></div>
+                  </div>
                 </div>
-                {/* /progress */}
               </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>CSS3</h6>
-                <span className="theme-bg">84%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "84%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-              <div className="progress-lt">
-                <h6>Javascript</h6>
-                <span className="theme-bg">88%</span>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: "88%" }}></div>
-                  {/* /progress-bar */}
-                </div>
-                {/* /progress */}
-              </div>
-              {/* /progress-lt */}
-            </div>
+            ))}
           </div>
+        </div>
         </div>
       </div>
     </SectionContainer>

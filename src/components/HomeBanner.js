@@ -1,9 +1,12 @@
-import { useContext } from "react";
-import { AlexioContext } from "../Context";
+import { use, useContext } from "react";
+import { AlexioContext,UserDataContext } from "../Context";
 import TypingAnimation from "./TypingAnimation";
 
 const HomeBanner = () => {
   const { nav, changeNav } = useContext(AlexioContext);
+  const {userData}=useContext(UserDataContext);
+  const socialLinks = userData.user.social_handles
+
   const activePageClass = () => ("home" === nav ? "" : "page--inactive");
   return (
     <div
@@ -24,9 +27,9 @@ const HomeBanner = () => {
                 <div className="v-center-box d-flex align-items-center">
                   <div className="home-text">
                     <h6 className="dark-color theme-after">Hello, There</h6>
-                    <h1 className="dark-color blue-after">I'm Alexis Larten</h1>
+                    <h1 className="dark-color blue-after">I'm {userData.user.about.name}</h1>
                     <p>
-                      WEB <TypingAnimation />
+                      <TypingAnimation />
                     </p>
                     <div className="btn-bar">
                       <a href="#" className="btn btn-theme">
@@ -35,26 +38,18 @@ const HomeBanner = () => {
                     </div>
                   </div>
                   <ul className="social-icons">
-                    <li>
-                      <a className="facebook" href="#">
-                        <i className="fab fa-facebook-f" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="twitter" href="#">
-                        <i className="fab fa-twitter" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="google" href="#">
-                        <i className="fab fa-google-plus-g" />
-                      </a>
-                    </li>{" "}
-                    <li>
-                      <a className="linkedin" href="#">
-                        <i className="fab fa-linkedin-in" />
-                      </a>
+                  {socialLinks.map((socialHandle) => (
+                    <li key={socialHandle.platform} style={{ display: 'inline-block', margin: '0 7px' }}> {/* Use unique key for each social media */}
+                      {socialHandle.enabled && ( // Only render enabled social media
+                        <a
+                          className={socialHandle.platform.toLowerCase()} // Set class based on platform
+                          href={socialHandle.url}
+                        >
+                          <img src={socialHandle.image.url} alt={socialHandle.platform} />
+                        </a>
+                      )}
                     </li>
+                  ))}
                   </ul>
                 </div>
               </div>

@@ -1,6 +1,10 @@
 import SectionContainer from "./SectionContainer";
+import { useContext } from "react";
+import { UserDataContext } from "../Context";
 
 const AboutUs = () => {
+  const {userData}=useContext(UserDataContext);
+
   return (
     <SectionContainer
       name={"about"}
@@ -16,68 +20,24 @@ const AboutUs = () => {
         </div>
         <div className="col-md-8 md-m-30px-t">
           <div className="about-text">
-            <h3 className="dark-color">I'm Alexis Larten</h3>
+            <h3 className="dark-color">I'm {userData.user.about.name}</h3>
             <p className="m-0px">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            {userData.user.about.description}
             </p>
           </div>{" "}
           {/* about-text */}
           <div className="row m-30px-t">
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-ruler-pencil" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Development</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-image" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Graphic</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-brush-alt" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Web design</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
-            <div className="col-md-6 col-sm-6 m-30px-b">
-              <div className="feature-box">
-                <i className="icon dark-color theme-after ti-mobile" />
-                <div className="feature-content">
-                  <h5 className="dark-color">Mobile apps</h5>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt.
-                  </p>
-                </div>
-              </div>
-            </div>{" "}
-            {/* col */}
+          {userData.user.services.map((service, index) => (
+        <div className="col-md-6 col-sm-6 m-30px-b" key={index}>
+          <div className="feature-box">
+            <i className="icon dark-color theme-after ti-ruler-pencil" />
+            <div className="feature-content">
+              <h5 className="dark-color">{service.name}</h5>
+              <p>{service.desc}</p>
+            </div>
+          </div>
+        </div>
+      ))}
           </div>{" "}
           {/* row */}
           <div className="btn-bar">
