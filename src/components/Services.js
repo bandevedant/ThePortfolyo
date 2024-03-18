@@ -6,7 +6,7 @@ const Services = () => {
   const {userData}=useContext(UserDataContext);
   const timelineItems = userData.user.timeline.sort((a, b) => a.sequence - b.sequence);
   const topThreeItems = timelineItems.slice(0, 3);
-  const skillsData=userData.user.skills.slice(0,3);
+  const skillsData=userData.user.skills;
   const filteredSkills = skillsData.filter(
     (skill) => skill.enabled // Filter only enabled skills
   );

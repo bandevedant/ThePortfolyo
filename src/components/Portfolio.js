@@ -91,8 +91,9 @@ const Portfolio = () => {
         {/* r */}
         <div className="portfolio-content">
           <ul className="portfolio-cols portfolio-cols-3">
+          
           {projects.map((project) => (
-              <li key={project._id} className="portfolio-item website">
+              <li key={project._id} className="portfolio-item apps">
                 <div className="portfolio-col portfolio-hover-01">
                   <div className="portfolio-img">
                     <a href="#"> {/* Adjust link as needed */}
@@ -107,10 +108,10 @@ const Portfolio = () => {
                         >
                           <i className="fa fa-play" />
                         </a>
-                        <a href={project.image.url} className="lightbox-gallery theme-color">
+                        <a href={project.githuburl} className="lightbox-gallery theme-color">
                           <i className="fas fa-expand" />
                         </a>
-                        <a href="#" className="theme-color">
+                        <a href={project.liveurl} className="theme-color">
                           <i className="fa fa-link" />
                         </a>
                       </div>
