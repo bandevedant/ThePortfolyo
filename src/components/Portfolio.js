@@ -66,25 +66,25 @@ const Portfolio = () => {
               All
             </li>{" "}
             <li
-              className={`${activeBtn("photoshop")} theme-after`}
-              onClick={handleFilterKeyChange("photoshop")}
-              data-filter=".photoshop"
+              className={`${activeBtn("Reactjs")} theme-after`}
+              onClick={handleFilterKeyChange("Reactjs")}
+              data-filter=".Reactjs"
             >
-              Photoshop
+             ReactJs
             </li>{" "}
             <li
-              className={`${activeBtn("website")} theme-after`}
-              onClick={handleFilterKeyChange("website")}
-              data-filter=".website"
+              className={`${activeBtn("Nextjs")} theme-after`}
+              onClick={handleFilterKeyChange("Nextjs")}
+              data-filter=".Nextjs"
             >
-              Website
+              NextJs
             </li>{" "}
             <li
-              className={`${activeBtn("apps")} theme-after`}
-              onClick={handleFilterKeyChange("apps")}
-              data-filter=".apps"
+              className={`${activeBtn("Mern")} theme-after`}
+              onClick={handleFilterKeyChange("Mern")}
+              data-filter=".Mern"
             >
-              Apps
+               MERN
             </li>
           </ul>
         </div>{" "}
@@ -93,15 +93,14 @@ const Portfolio = () => {
           <ul className="portfolio-cols portfolio-cols-3">
           
           {projects.map((project) => (
-              <li key={project._id} className="portfolio-item apps">
+              <li key={project._id} className={`portfolio-item ${project.techStack.join(" ")}`}>
                 <div className="portfolio-col portfolio-hover-01">
                   <div className="portfolio-img">
-                    <a href="#"> {/* Adjust link as needed */}
+                    <a href="#"> 
                       <img src={project.image.url} alt={project.title} />
                     </a>
                     <div className="hover">
                       <div className="action-btn">
-                        {/* Add links/buttons based on your requirements */}
                         <a
                           href="http://www.youtube.com/watch?v=0O2aH4XLbto"
                           className="popup-video theme-color"
